@@ -3,24 +3,51 @@
 
 using namespace sf;
 
-Tile::Tile(int x,int y)
+Tile::Tile(int x,int y,int area)
 {
     screen_x = x;
     screen_y = y;
-    tile_x = screen_x / 4;
-    tile_y = tile_x * 2;
+    tile_width = screen_x / 4;
+    tile_length = tile_width * 2;
     //RectangleShape t(sf::Vector2f(tile_x, tile_y));
-    t.setSize(sf::Vector2f(tile_x, tile_y));
+    t.setSize(Vector2f(tile_width, tile_length));
     t.setFillColor(Color::Black);
-    t.setPosition(Vector2f(0,0));
+    Vector2f position;
+    if(area == 1)
+    {
+        position.x = 0.f;
+        position.y = 0.f - (float)tile_length;
+    }
+    else if(area == 2)
+    {
+        position.x = 0.f + (float)tile_width;
+        position.y = 0.f - (float)tile_length;
+    }
+    else if(area == 3)
+    {
+        position.x = 0.f + (float)tile_width * 2;
+        position.y = 0.f - (float)tile_length;
+    }
+    else if(area == 4)
+    {
+        position.x = 0.f + (float)tile_width * 3;
+        position.y = 0.f - (float)tile_length;
+    }
+    //position = t.getPosition();
+    t.setPosition(position);
 }
 
-void Tile::Drop()
+Tile::~Tile()
 {
-    int y = 0;
-    for(int y = 0; y < screen_y;y = y + 5)
-    {
-        t.move(Vector2f(0,y));
-        usleep(5000);
-    }
+
+}
+
+int Tile::Drop()
+{
+    t.move(0.f,10.f);
+    //t.setFillColor(Color::Black);
+    usleep(25000);
+    position = t.getPosition();
+    if(position.y > screen_y)
+        return 1;
 }

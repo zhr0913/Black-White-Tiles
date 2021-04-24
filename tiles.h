@@ -7,11 +7,14 @@ using namespace sf;
 class Tile
 {
 public:
-    Tile(int screen_x,int screen_y);
+    Tile(int x,int y,int area);
+    ~Tile();
     RectangleShape t;
-    void Drop();
+    int Drop();
     //Sprite st;
 private:
-    int tile_x,tile_y;
+    int tile_width,tile_length;
+    //float tile_x,tile_y;
+    Vector2f position;
     int screen_x,screen_y;
 };
