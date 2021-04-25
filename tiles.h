@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
+#include <unistd.h>
 
 using namespace sf;
 
@@ -11,6 +12,7 @@ public:
     ~Tile();
     RectangleShape t;
     int Drop();
+    int IsHit();
     //Sprite st;
 private:
     int tile_width,tile_length;
