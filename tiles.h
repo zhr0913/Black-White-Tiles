@@ -13,6 +13,7 @@ public:
     RectangleShape t;
     int Drop();
     bool IsHit();
+    void ReSize(Vector2u screen);
     //Sprite st;
 private:
     bool IsActive = false;
@@ -20,4 +21,5 @@ private:
     //float tile_x,tile_y;
     Vector2f position;
     int screen_x,screen_y;
+    int area;
 };

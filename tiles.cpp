@@ -8,6 +8,7 @@ Tile::Tile(int x,int y,int area)
     screen_y = y;
     tile_width = screen_x / 4;
     tile_length = tile_width / 0.618;
+    area = area;
     //RectangleShape t(sf::Vector2f(tile_x, tile_y));
     t.setSize(Vector2f((float)tile_width,(float)tile_length));
     t.setFillColor(Color::Black);
@@ -41,6 +42,36 @@ Tile::~Tile()
 
 }
 
+void Tile::ReSize(Vector2u screen)
+{
+    screen_x = screen.x;
+    screen_y = screen.y;
+    tile_width = screen_x / 4;
+    tile_length = tile_width / 0.618;
+    t.setSize(Vector2f((float)tile_width,(float)tile_length));
+    if(area == 1)
+    {
+        position.x = 0.f;
+        position.y = 0.f - (float)tile_length;
+    }
+    else if(area == 2)
+    {
+        position.x = 0.f + (float)tile_width;
+        position.y = 0.f - (float)tile_length;
+    }
+    else if(area == 3)
+    {
+        position.x = 0.f + (float)tile_width * 2;
+        position.y = 0.f - (float)tile_length;
+    }
+    else if(area == 4)
+    {
+        position.x = 0.f + (float)tile_width * 3;
+        position.y = 0.f - (float)tile_length;
+    }
+    t.setPosition(position);
+}
+
 int Tile::Drop()
 {
     float time,time_exchanged,speed;
@@ -64,7 +95,7 @@ bool Tile::IsHit()
         {
             if(MousePosition.y >= position.y && MousePosition.y <= position.y + tile_length)
             {
-                t.setFillColor(sf::Color(0,0,0,75));
+                t.setFillColor(sf::Color(0,0,0,70));
                 Vector2i MousePosition(NULL,NULL);
                 IsActive = true;
                 return true;
