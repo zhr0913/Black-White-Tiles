@@ -12,9 +12,10 @@ public:
     ~Tile();
     RectangleShape t;
     int Drop();
-    int IsHit();
+    bool IsHit();
     //Sprite st;
 private:
+    bool IsActive = false;
     int tile_width,tile_length;
     //float tile_x,tile_y;
     Vector2f position;

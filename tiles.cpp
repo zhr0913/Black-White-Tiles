@@ -44,28 +44,30 @@ Tile::~Tile()
 int Tile::Drop()
 {
     float time,time_exchanged,speed;
-    time = 4;
-    time_exchanged = time * 100000;
+    time = 15;
+    //time_exchanged = time * 100000;
     speed = screen_y / time;
     t.move(0.f,speed);
     //t.setFillColor(Color::Black);
-    usleep(time_exchanged);
+    usleep(100000);
     position = t.getPosition();
     if(position.y > screen_y)
         return 1;
 }
 
-int Tile::IsHit()
+bool Tile::IsHit()
 {
     sf::Vector2i MousePosition = sf::Mouse::getPosition();
-    if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
+    if(sf::Mouse::isButtonPressed(sf::Mouse::Left) && IsActive == false)
     {
         if(MousePosition.x >= position.x && MousePosition.x <= position.x + tile_width)
         {
             if(MousePosition.y >= position.y && MousePosition.y <= position.y + tile_length)
             {
                 t.setFillColor(sf::Color(0,0,0,75));
-                return 1;
+                Vector2i MousePosition(NULL,NULL);
+                IsActive = true;
+                return true;
             }
         }
     }
